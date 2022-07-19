@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "spotify-sdk": "^1.0.0-beta2"
+  }
+}
