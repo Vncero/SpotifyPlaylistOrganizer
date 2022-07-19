@@ -24,4 +24,4 @@ yarn-error.log*
 
 #other
 /src/archive/
-../archive/
+/archive/
