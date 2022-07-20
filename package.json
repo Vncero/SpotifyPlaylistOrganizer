@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "eslint": "^4.19.1",
     "spotify-sdk": "^1.0.0-beta2"
   }
 }
