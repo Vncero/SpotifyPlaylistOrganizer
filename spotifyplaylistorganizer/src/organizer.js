@@ -26,7 +26,7 @@ function session() {
 session();
 
 function login() {
-    client.login().then((url) => {
+    client.login().then(url => {
         window.location.href = url;
     });
 }
@@ -37,6 +37,12 @@ let user = new UserHandler();
 let playlists = new PlaylistHandler();
 let tracks = new TrackHandler();
 
-function sortBySound(playlist) {
-    playlists.
+function sortBySound(playlistName) {
+    let usersPlaylists;
+    user.me().then((me) => {
+        user.playlists(me.id).then((playlists) => {
+            usersPlaylists = playlists.items;
+        });
+    });
+    if (usersPlaylists) console.log(usersPlaylists);
 }

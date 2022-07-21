@@ -5,9 +5,9 @@ import './site.css';
 class Login extends React.Component {
     render() {
         return (
-            <Form>
-                
-            </Form>
+            <Button id = "login">
+                Login
+            </Button>
         );
     }
 }
