@@ -38,11 +38,18 @@ let playlists = new PlaylistHandler();
 let tracks = new TrackHandler();
 
 function sortBySound(playlistName) {
-    let usersPlaylists;
-    user.me().then((me) => {
-        user.playlists(me.id).then((playlists) => {
-            usersPlaylists = playlists.items;
-        });
-    });
-    if (usersPlaylists) console.log(usersPlaylists);
+    let relevantPlaylist;
+    user.me()
+        .then((me) => me.playlists())
+        .then((playlistsCollection) => {
+            playlistsCollection.forEach((e) => {
+                //search for `playlistName`, then go through each track and get audio analysis
+                if (e.name === playlistName) relevantPlaylist = e; 
+            });
+        })
+        .catch((err) => console.log(err));
+    
+    console.log(relevantPlaylist ? relevantPlaylist : "playlist not found");
+
+    
 }
