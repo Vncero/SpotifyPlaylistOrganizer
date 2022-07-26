@@ -16,7 +16,7 @@ client.settings = {
         'playlist-read-private',
         'playlist-modify-private',
     ],
-    redirect_uri: '',
+    redirect_uri: 'localhost:3000/redirect',
 };
 
 function session() {
