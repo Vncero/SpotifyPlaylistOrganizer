@@ -2,6 +2,11 @@ import {Client, UserHandler, TrackHandler, PlaylistHandler} from 'spotify-sdk';
 
 const client = Client.instance;
 
+let user = new UserHandler();
+let playlists = new PlaylistHandler();
+let tracks = new TrackHandler();
+
+
 client.settings = {
     clientId: '',
     secretId: '',
@@ -22,7 +27,6 @@ function session() {
         client.token = sessionStorage.token;
     }
 }
-
 session();
 
 function login() {
@@ -30,12 +34,7 @@ function login() {
         window.location.href = url;
     });
 }
-
 document.querySelector('#login').onclick = login;
-
-let user = new UserHandler();
-let playlists = new PlaylistHandler();
-let tracks = new TrackHandler();
 
 function sortBySound(playlistName) {
     let relevantPlaylist;
@@ -49,7 +48,5 @@ function sortBySound(playlistName) {
         })
         .catch((err) => console.log(err));
     
-    console.log(relevantPlaylist ? relevantPlaylist : "playlist not found");
-
-    
+    console.log(relevantPlaylist ?? "playlist not found");
 }
