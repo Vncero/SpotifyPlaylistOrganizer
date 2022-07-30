@@ -6,6 +6,7 @@ let user = new UserHandler();
 let playlists = new PlaylistHandler();
 let tracks = new TrackHandler();
 
+//most of this is probably going into components
 
 client.settings = {
     clientId: '',
@@ -38,15 +39,23 @@ document.querySelector('#login').onclick = login;
 
 function sortBySound(playlistName) {
     let relevantPlaylist;
+    let trackAnalyses = [];
     user.me()
         .then((me) => me.playlists())
         .then((playlistsCollection) => {
             playlistsCollection.forEach((e) => {
                 //search for `playlistName`, then go through each track and get audio analysis
-                if (e.name === playlistName) relevantPlaylist = e; 
+                if (e.name === playlistName) relevantPlaylist = e;
             });
         })
         .catch((err) => console.log(err));
     
-    console.log(relevantPlaylist ?? "playlist not found");
+    for (let track of relevantPlaylist.tracks) {
+        tracks.audioFeatures([track.id]).then((features) => {
+            console.log(features);
+            trackAnalyses[trackAnalyses.length] = features;
+        });
+    }
+    
+    console.log(relevantPlaylist.tracks ?? "playlist not found");
 }

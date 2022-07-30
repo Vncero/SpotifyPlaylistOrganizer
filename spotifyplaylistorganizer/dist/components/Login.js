@@ -1,4 +1,3 @@
-"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -14,15 +13,21 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-exports.__esModule = true;
-var React = require("react");
-var App = /** @class */ (function (_super) {
-    __extends(App, _super);
-    function App(props) {
+import React from 'react';
+var Login = /** @class */ (function (_super) {
+    __extends(Login, _super);
+    function Login(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {};
         return _this;
     }
-    return App;
+    Login.prototype.render = function () {
+        return id = 'login' >
+            /input>
+            < /form>;
+        ;
+    };
+    return Login;
 }(React.Component));
-exports["default"] = App;
+export default Login;
+//# sourceMappingURL=Login.js.map
