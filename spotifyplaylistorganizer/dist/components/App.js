@@ -1,27 +1,16 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 import * as React from 'react';
-var App = /** @class */ (function (_super) {
-    __extends(App, _super);
-    function App(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {};
-        return _this;
+import { Link } from 'react-router-dom';
+import './css/App.css';
+export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
     }
-    return App;
-}(React.Component));
-export default App;
+    render() {
+        return (React.createElement("div", { id: 'app' },
+            React.createElement("div", { id: 'header' },
+                React.createElement("h1", null, "SpotifyPlaylistOrganizer"),
+                React.createElement(Link, { to: 'http://localhost:8080/api/login' }, "Login"))));
+    }
+}
 //# sourceMappingURL=App.js.map

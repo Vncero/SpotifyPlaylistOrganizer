@@ -12,8 +12,9 @@
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "pretty": true,
+        "moduleResolution": "node"
     },
     "include": [
-        "./src/"
-    ]
+        "./src/*"
+    ],
 }

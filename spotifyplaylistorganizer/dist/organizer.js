@@ -1,8 +1,9 @@
 import { Client, UserHandler, TrackHandler, PlaylistHandler } from 'spotify-sdk';
-var client = Client.instance;
-var user = new UserHandler();
-var playlists = new PlaylistHandler();
-var tracks = new TrackHandler();
+const client = Client.instance;
+let user = new UserHandler();
+let playlists = new PlaylistHandler();
+let tracks = new TrackHandler();
+//most of this is probably going into components
 client.settings = {
     clientId: '',
     secretId: '',
@@ -12,36 +13,39 @@ client.settings = {
         'playlist-read-private',
         'playlist-modify-private',
     ],
-    redirect_uri: 'localhost:3000/redirect',
+    redirect_uri: 'http://localhost:3000/', //redirect to main page
+    // redirect_uri: 'http://localhost:3000/api/redirect',
 };
-function session() {
-    if (sessionStorage.token) {
-        client.token = sessionStorage.token;
-    }
-    else if (window.location.hash.split('&')[0].split('=')[1]) {
-        sessionStorage.token = window.location.hash.split('&')[0].split('=')[1];
-        client.token = sessionStorage.token;
-    }
-}
-session();
-function login() {
-    client.login().then(function (url) {
-        window.location.href = url;
-    });
-}
-document.querySelector('#login').onclick = login;
-function sortBySound(playlistName) {
-    var relevantPlaylist;
-    user.me()
-        .then(function (me) { return me.playlists(); })
-        .then(function (playlistsCollection) {
-        playlistsCollection.forEach(function (e) {
-            //search for `playlistName`, then go through each track and get audio analysis
-            if (e.name === playlistName)
-                relevantPlaylist = e;
+let Spotify = {
+    login() {
+        return new Promise((res, rej) => {
+            client.login((url) => {
+                window.open(url, 'Spotify', 'menubar=no, location=no, resizable=yes, scrollbars=yes, status=no, width=400, height=500');
+            });
         });
-    })
-        .catch(function (err) { return console.log(err); });
-    console.log(relevantPlaylist !== null && relevantPlaylist !== void 0 ? relevantPlaylist : "playlist not found");
-}
+    },
+    sortBySound(playlistName) {
+        var _a;
+        let relevantPlaylist;
+        let trackAnalyses = [];
+        user.me()
+            .then((me) => me.playlists())
+            .then((playlistsCollection) => {
+            playlistsCollection.forEach((e) => {
+                //search for `playlistName`, then go through each track and get audio analysis
+                if (e.name === playlistName)
+                    relevantPlaylist = e;
+            });
+        })
+            .catch((err) => console.log(err));
+        for (let track of relevantPlaylist.tracks) {
+            tracks.audioFeatures([track.id]).then((features) => {
+                console.log(features);
+                trackAnalyses[trackAnalyses.length] = features;
+            });
+        }
+        console.log((_a = relevantPlaylist.tracks) !== null && _a !== void 0 ? _a : "playlist not found");
+    }
+};
+export { Spotify };
 //# sourceMappingURL=organizer.js.map

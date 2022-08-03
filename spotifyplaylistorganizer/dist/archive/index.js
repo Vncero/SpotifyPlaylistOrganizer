@@ -1,33 +1,13 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 import React from 'react';
 import './App.css';
 function Square(props) {
     return (React.createElement("button", { className: "square", onClick: props.onClick }, props.value));
 }
-var Board = /** @class */ (function (_super) {
-    __extends(Board, _super);
-    function Board() {
-        return _super !== null && _super.apply(this, arguments) || this;
+class Board extends React.Component {
+    renderSquare(i) {
+        return React.createElement(Square, { value: this.props.squares[i], onClick: () => { this.props.onClick(i); } });
     }
-    Board.prototype.renderSquare = function (i) {
-        var _this = this;
-        return React.createElement(Square, { value: this.props.squares[i], onClick: function () { _this.props.onClick(i); } });
-    };
-    Board.prototype.render = function () {
+    render() {
         return (React.createElement("div", null,
             React.createElement("div", { className: "board-row" },
                 this.renderSquare(0),
@@ -41,26 +21,23 @@ var Board = /** @class */ (function (_super) {
                 this.renderSquare(6),
                 this.renderSquare(7),
                 this.renderSquare(8))));
-    };
-    return Board;
-}(React.Component));
-var Game = /** @class */ (function (_super) {
-    __extends(Game, _super);
-    function Game(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
+    }
+}
+class Game extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
             xIsNext: true,
             stepNumber: 0,
             history: [
                 { squares: Array(9).fill(null) },
             ],
         };
-        return _this;
     }
-    Game.prototype.handleClick = function (i) {
-        var history = this.state.history.slice(0, this.state.stepNumber + 1);
-        var current = history[history.length - 1];
-        var squares = current.squares.slice();
+    handleClick(i) {
+        const history = this.state.history.slice(0, this.state.stepNumber + 1);
+        const current = history[history.length - 1];
+        const squares = current.squares.slice();
         if (calculateWinner(squares) || squares[i]) {
             return;
         }
@@ -73,26 +50,25 @@ var Game = /** @class */ (function (_super) {
             xIsNext: !this.state.xIsNext,
             stepNumber: history.length,
         });
-    };
-    Game.prototype.jumpTo = function (step) {
+    }
+    jumpTo(step) {
         this.setState({
             stepNumber: step,
             xIsNext: (step % 2) === 0,
         });
-    };
-    Game.prototype.render = function () {
-        var _this = this;
-        var history = this.state.history;
-        var current = history[this.state.stepNumber];
-        var winner = calculateWinner(current.squares);
-        var moves = history.map(function (step, move) {
-            var desc = move
+    }
+    render() {
+        const history = this.state.history;
+        const current = history[this.state.stepNumber];
+        const winner = calculateWinner(current.squares);
+        const moves = history.map((step, move) => {
+            const desc = move
                 ? 'Go to move #' + move
                 : 'Go to game start';
             return (React.createElement("li", { key: move },
-                React.createElement("button", { onClick: function () { return _this.jumpTo(move); } }, desc)));
+                React.createElement("button", { onClick: () => this.jumpTo(move) }, desc)));
         });
-        var status;
+        let status;
         if (winner) {
             status = 'Winner: ' + winner;
         }
@@ -101,15 +77,14 @@ var Game = /** @class */ (function (_super) {
         }
         return (React.createElement("div", { className: "game" },
             React.createElement("div", { className: "game-board" },
-                React.createElement(Board, { squares: current.squares, onClick: function (i) { return _this.handleClick(i); } })),
+                React.createElement(Board, { squares: current.squares, onClick: (i) => this.handleClick(i) })),
             React.createElement("div", { className: "game-info" },
                 React.createElement("div", null, status),
                 React.createElement("ol", null, moves))));
-    };
-    return Game;
-}(React.Component));
+    }
+}
 function calculateWinner(squares) {
-    var list = [
+    const list = [
         [0, 1, 2],
         [3, 4, 5],
         [6, 7, 8],
@@ -119,8 +94,8 @@ function calculateWinner(squares) {
         [0, 4, 8],
         [2, 4, 6]
     ];
-    for (var i = 0; i < list.length; i++) {
-        var _a = list[i], a = _a[0], b = _a[1], c = _a[2];
+    for (let i = 0; i < list.length; i++) {
+        let [a, b, c] = list[i];
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
             return squares[a];
         }
