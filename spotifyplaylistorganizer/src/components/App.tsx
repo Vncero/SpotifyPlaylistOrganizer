@@ -12,8 +12,11 @@ export default class App extends React.Component<any, any> {
 
     render(): React.ReactNode {
         return (
-            <div id = 'header'>
-                <h1>SpotifyPlaylistOrganizer</h1>
+            <div id = 'app'>
+                <div id = 'header'>
+                    <h1>SpotifyPlaylistOrganizer</h1>
+                    <button id = 'login' onClick={}>Login</button> //redirect to login on express-router
+                </div>
             </div>
         );
     }

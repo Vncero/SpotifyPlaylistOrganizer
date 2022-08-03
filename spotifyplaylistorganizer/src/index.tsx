@@ -1,5 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
+import { Router, Route } from '../node_modules/react-router-dom/index';
+
+import { Spotify } from './organizer';
+
 import App from './components/App';
 import Login from './components/Login';
 
@@ -7,27 +11,21 @@ const express = require('express');
 const app = express();
 const port = process.env.port || 3000;
 
+let token: any;
+
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
-const onError = function(err: any): void {console.error(err);} 
+const onError = (err: any) => console.error(err);
 
-app.get('/', 
-    function(_req: any): void {
-        root.render(<App />)
-    },
-    onError
-);
+<Route path = '/' component = {App}/>
 
-app.get('/login',
-    function(_req: any): void {
-        root.render(<Login />)
-    },
-    onError
-);
+app.get('/api/login', () => token = Spotify.login());
+
+app.get('/api/redirect', (_req: any, res: any) => res.send(token));
 
 app.listen(port,
-    function(_req: any): void {
-        console.log('Listening on port: ' + port);
-    },
+    () => {console.log('Listening on portt: ' + port)},
     onError
-)
+);
+
+export {token};
