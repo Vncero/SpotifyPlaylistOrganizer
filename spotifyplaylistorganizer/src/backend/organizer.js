@@ -9,16 +9,16 @@ let tracks = new TrackHandler();
 //most of this is probably going into components
 
 client.settings = {
-    clientId: '',
-    secretId: '',
+    clientId: process.env.SPOTIFY_CLIENT_ID,
+    secretId: process.env.SPOTIFY_SECRET_ID,
     scopes: [
         'playlist-read-collaborative',
         'playlist-modify-public',
         'playlist-read-private',
         'playlist-modify-private',
     ],
-    redirect_uri: 'http://localhost:3000/', //redirect to main page
-    // redirect_uri: 'http://localhost:3000/api/redirect',
+    // redirect_uri: 'http://localhost:3000/', //redirect to main page
+    redirect_uri: 'http://localhost:3000/api/redirect',
 };
 
 let Spotify = {
