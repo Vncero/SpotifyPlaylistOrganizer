@@ -1,4 +1,4 @@
-import { Spotify } from "../organizer";
+import { Spotify } from "./organizer";
 import Constants from "./constants";
 
 const express = require('express');
@@ -13,7 +13,7 @@ app.get('/api/login', function() {
 
 app.get('/api/redirect', function(_req: any, res: any) {
     res.json(Constants.token);
-    
+    res.redirect(307, '/options')
 });
 
 app.listen(port,
