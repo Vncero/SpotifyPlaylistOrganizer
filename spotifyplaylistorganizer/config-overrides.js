@@ -21,7 +21,7 @@ module.exports = {
         });
         config.resolve.fallback = fallback;
         
-        config.plugins = (config.pluhins || []).concat([
+        config.plugins = (config.plugins || []).concat([
             new webpack.ProvidePlugin({
                 process: 'process/browser',
                 Buffer: ['buffer', 'Buffer'],
@@ -33,8 +33,9 @@ module.exports = {
     },
 
     paths: function(paths, env) {
-        const buildPath = 'dist/';
-        paths.appBuild = path.resolve(__dirname, '../', buildPath);
+        const buildPath = 'dist';
+        paths.appIndexJs = path.resolve(__dirname, 'dist/index.js')
+        paths.appSrc = path.resolve(__dirname, './', buildPath);
         
         return paths;
     }
