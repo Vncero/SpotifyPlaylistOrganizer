@@ -17,7 +17,6 @@ client.settings = {
         'playlist-read-private',
         'playlist-modify-private',
     ],
-    // redirect_uri: 'http://localhost:3000/', //redirect to main page
     redirect_uri: 'http://localhost:3000/api/redirect',
 };
 
@@ -49,7 +48,7 @@ let Spotify = {
         for (let track of relevantPlaylist.tracks) {
             tracks.audioFeatures([track.id]).then((features) => {
                 console.log(features);
-                trackAnalyses[trackAnalyses.length] = features;
+                trackAnalyses[trackAnalyses.length - 1] = features;
             });
         }
         
