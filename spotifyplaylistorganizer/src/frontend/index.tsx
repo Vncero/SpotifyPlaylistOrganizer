@@ -1,3 +1,5 @@
+// ! run 'xcopy '.\\src\\frontend\\components\\css\\' '.\\dist\\frontend\\components\\css\\' /-y /k /i /w' before `npm start` 
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';

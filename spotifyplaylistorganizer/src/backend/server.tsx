@@ -7,8 +7,9 @@ const port = process.env.port || 3000;
 
 const onError = (err: any) => console.error(err);
 
-app.get('/api/login', function() {
-    Constants.token = Spotify.login();
+app.get('/api/login', function(res: any) {
+    res.send('Logging in...');
+    // Constants.token = Spotify.login();
 });
 
 app.get('/api/redirect', function(_req: any, res: any) {

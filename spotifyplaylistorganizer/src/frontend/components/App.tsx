@@ -4,23 +4,14 @@ import Constants from '../../backend/constants';
 
 import './css/App.css';
 
-export default class App extends React.Component<[], any> {
-    constructor(props: []) {
-        super(props);
-        this.state = {
-            
-        };
-    }
-
-    render(): React.ReactNode {
+export default function App(props: any) {
         return (
             <div id = 'app'>
                 <div id = 'header'>
                     <h1>SpotifyPlaylistOrganizer</h1>
                     <Link to='/api/login'>Login</Link>
-                    (Constants.token !== {} ? <Link to='/options' /> : <h3 id='notLoggedIn'>Login to sort your playlist!</h3>)
+                    {typeof Constants.token !== 'object' ? <button onClick={() => window.location.replace('/options')}> Sort Playlists </button> : <h3 id='notLoggedIn'>Log in to sort playlists</h3>}
                 </div>
             </div>
         );
-    }
 }

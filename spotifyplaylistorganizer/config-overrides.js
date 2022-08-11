@@ -34,7 +34,7 @@ module.exports = {
 
     paths: function(paths, env) {
         const buildPath = 'dist';
-        paths.appIndexJs = path.resolve(__dirname, 'dist/index.js')
+        paths.appIndexJs = path.resolve(__dirname, 'dist/frontend/index.js')
         paths.appSrc = path.resolve(__dirname, './', buildPath);
         
         return paths;
