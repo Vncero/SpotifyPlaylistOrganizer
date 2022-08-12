@@ -9,8 +9,12 @@ export default function App(props: any) {
             <div id = 'app'>
                 <div id = 'header'>
                     <h1>SpotifyPlaylistOrganizer</h1>
-                    <Link to='/api/login'>Login</Link>
-                    {typeof Constants.token !== 'object' ? <button onClick={() => window.location.replace('/options')}> Sort Playlists </button> : <h3 id='notLoggedIn'>Log in to sort playlists</h3>}
+                    <div id = 'header-buttons'>
+                        <button onClick={() => window.location.replace('/api/login')}> Login </button>
+                        {/* <Link to='/api/login'>Login</Link> */}
+                        {/* <button onClick={() => window.location.replace('/options')}> Sort Playlists </button> */}
+                        {typeof Constants.token !== 'object' ? <Link to='/options'> Sort Playlists </Link> : <h3 id='notLoggedIn'> Log in to sort playlists </h3>}
+                    </div>
                 </div>
             </div>
         );
