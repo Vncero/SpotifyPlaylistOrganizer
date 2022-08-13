@@ -1,23 +1,16 @@
-import { Spotify } from "./organizer";
-import Constants from "./constants";
+import { client } from './organizer';
+import * as express from 'express';
+import { Request, Response } from 'express';
 
-const express = require('express');
 const app = express();
-const port = process.env.port || 3000;
-
+const port = 3000;
 const onError = (err: any) => console.error(err);
 
-app.get('/api/login', function(res: any) {
-    res.send('Logging in...');
-    // Constants.token = Spotify.login();
+app.get('/api/redirect', function(_req: Request, res: Response) {
+    res.writeHead(200, 'redirected after login');
+    res.json(client.token);
+    res.redirect(307, '/');
+    res.end();
 });
 
-app.get('/api/redirect', function(_req: any, res: any) {
-    res.json(Constants.token);
-    res.redirect(307, '/options')
-});
-
-app.listen(port,
-    () => {console.log('Listening on port: ' + port)},
-    onError
-);
+app.listen(port, () => {console.log('Listening on port ' + port)});

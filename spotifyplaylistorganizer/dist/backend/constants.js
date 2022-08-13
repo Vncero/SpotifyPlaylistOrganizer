@@ -1,5 +1,5 @@
 let Constants = {
-    token: [],
+    token: '',
 };
 export default Constants;
 //# sourceMappingURL=constants.js.map

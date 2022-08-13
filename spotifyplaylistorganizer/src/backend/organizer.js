@@ -6,11 +6,9 @@ let user = new UserHandler();
 let playlists = new PlaylistHandler();
 let tracks = new TrackHandler();
 
-//most of this is probably going into components
-
 client.settings = {
-    clientId: process.env.SPOTIFY_CLIENT_ID,
-    secretId: process.env.SPOTIFY_SECRET_ID,
+    clientId: '', // process.env.SPOTIFY_CLIENT_ID
+    secretId: '', // process.env.SPOTIFY_SECRET_ID
     scopes: [
         'playlist-read-collaborative',
         'playlist-modify-public',
@@ -29,6 +27,12 @@ let Spotify = {
                     'Spotify',
                     'menubar=no, location=no, resizable=yes, scrollbars=yes, status=no, width=400, height=500'
                 );
+
+                window.addEventListener('storage', (data) => {
+                    if (data.key === 'token') {
+                        res(data.newValue);
+                    }
+                });
             });
         });
     },
@@ -56,4 +60,5 @@ let Spotify = {
     }
 };
 
-export { Spotify };
+export default Spotify;
+export { client };

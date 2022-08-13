@@ -3,10 +3,9 @@ const client = Client.instance;
 let user = new UserHandler();
 let playlists = new PlaylistHandler();
 let tracks = new TrackHandler();
-//most of this is probably going into components
 client.settings = {
-    clientId: process.env.SPOTIFY_CLIENT_ID,
-    secretId: process.env.SPOTIFY_SECRET_ID,
+    clientId: '',
+    secretId: '',
     scopes: [
         'playlist-read-collaborative',
         'playlist-modify-public',
@@ -20,6 +19,11 @@ let Spotify = {
         return new Promise((res, rej) => {
             client.login((url) => {
                 window.open(url, 'Spotify', 'menubar=no, location=no, resizable=yes, scrollbars=yes, status=no, width=400, height=500');
+                window.addEventListener('storage', (data) => {
+                    if (data.key === 'token') {
+                        res(data.newValue);
+                    }
+                });
             });
         });
     },
@@ -46,5 +50,6 @@ let Spotify = {
         console.log((_a = relevantPlaylist.tracks) !== null && _a !== void 0 ? _a : "playlist not found");
     }
 };
-export { Spotify };
+export default Spotify;
+export { client };
 //# sourceMappingURL=organizer.js.map
