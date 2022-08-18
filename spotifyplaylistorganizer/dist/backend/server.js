@@ -1,11 +1,7 @@
-import { client } from './organizer';
-const express = require('express');
+import * as express from 'express';
+const path = require('path');
 const app = express();
-const port = process.env.port || 3000;
-const onError = (err) => console.error(err);
-app.get('/api/redirect', function (_req, res) {
-    res.json(client.token);
-    res.redirect(307, '/');
-});
-app.listen(port, () => { console.log('Listening on port: ' + port); }, onError);
+const port = 8080;
+app.use('/api/redirect/', express.static(path.join(__dirname, '/login')))
+    .listen(port, () => console.log('Listening on port: ' + port));
 //# sourceMappingURL=server.js.map

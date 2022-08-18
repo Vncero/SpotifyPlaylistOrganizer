@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello</title>
+    </head>
+    <body>
+        <p>hello this is a redirect</p>
+        <script type='text/javascript'>
+            (function() {
+                localStorage.tokenExpires = Date.now() + 3600 * 1000;
+                localStorage.token = window.location.hash.split('&')[0].split('=')[1];
+                window.close();
+            })();
+        </script>
+    </body>
+</html>

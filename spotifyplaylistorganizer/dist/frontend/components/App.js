@@ -1,19 +1,29 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import Spotify, { client } from '../../backend/organizer';
 import './css/App.css';
-export default class App extends React.Component {
-    render() {
-        return (React.createElement("div", { id: 'app' },
-            React.createElement("div", { id: 'header' },
-                React.createElement("h1", null, "SpotifyPlaylistOrganizer"),
-                React.createElement("div", { id: 'header-buttons' },
-                    React.createElement("button", { id: 'login', onClick: () => Spotify.login().then((data) => {
-                            var _a;
-                            console.info(data);
-                            client.token = (_a = localStorage.getItem('token')) !== null && _a !== void 0 ? _a : '';
-                        }) }, " Login "),
-                    client.token ? React.createElement(Link, { to: '/options' }, " Sort Playlists ") : React.createElement("h3", { id: 'notLoggedIn' }, " Log in to sort playlists ")))));
-    }
+export default function App() {
+    const navigate = useNavigate();
+    const [loggedIn, setLoggedIn] = useState(false);
+    return (React.createElement("div", { id: 'app' },
+        React.createElement("nav", { id: 'header' },
+            React.createElement("h1", null, "SpotifyPlaylistOrganizer"),
+            React.createElement("div", { id: 'header-buttons' },
+                React.createElement("button", { id: 'login', onClick: () => {
+                        if (!loggedIn) {
+                            Spotify.login().then(() => {
+                                var _a;
+                                client.token = (_a = localStorage.getItem('token')) !== null && _a !== void 0 ? _a : '';
+                                console.log('client.token: ' + client.token);
+                                setLoggedIn(true);
+                            });
+                        }
+                        else {
+                            console.log('You\'re already logged in');
+                        }
+                    } }, !loggedIn ? 'Login' : 'Logged In'),
+                loggedIn &&
+                    React.createElement("button", { onClick: () => navigate('/options') })))));
 }
 //# sourceMappingURL=App.js.map

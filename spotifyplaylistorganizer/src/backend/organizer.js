@@ -7,15 +7,15 @@ let playlists = new PlaylistHandler();
 let tracks = new TrackHandler();
 
 client.settings = {
-    clientId: '', // process.env.SPOTIFY_CLIENT_ID
-    secretId: '', // process.env.SPOTIFY_SECRET_ID
+    clientId: String(process.env.REACT_APP_SPOTIFY_CLIENT_ID),
+    secretId: String(process.env.REACT_APP_SPOTIFY_SECRET_ID),
     scopes: [
         'playlist-read-collaborative',
         'playlist-modify-public',
         'playlist-read-private',
         'playlist-modify-private',
     ],
-    redirect_uri: 'http://localhost:3000/api/redirect',
+    redirect_uri: 'http://localhost:3000/login',
 };
 
 let Spotify = {
