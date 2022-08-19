@@ -5,7 +5,7 @@ import Spotify, { client } from '../../backend/organizer';
 import './css/App.css';
 export default function App() {
     const navigate = useNavigate();
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(Boolean(client.token));
     return (React.createElement("div", { id: 'app' },
         React.createElement("nav", { id: 'header' },
             React.createElement("h1", null, "SpotifyPlaylistOrganizer"),
@@ -24,6 +24,6 @@ export default function App() {
                         }
                     } }, !loggedIn ? 'Login' : 'Logged In'),
                 loggedIn &&
-                    React.createElement("button", { onClick: () => navigate('/options') })))));
+                    React.createElement("button", { onClick: () => navigate('/options') }, "Customize Sorting")))));
 }
 //# sourceMappingURL=App.js.map

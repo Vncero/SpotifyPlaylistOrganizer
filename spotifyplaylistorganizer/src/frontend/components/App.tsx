@@ -7,7 +7,7 @@ import './css/App.css';
 
 export default function App(): React.ReactElement {
     const navigate = useNavigate();
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(Boolean(client.token));
     return (
         <div id = 'app'>
             <nav id = 'header'>
