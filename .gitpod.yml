@@ -7,7 +7,6 @@ tasks:
     init: |
     npm i && cd ../frontend && npm i
     gp sync-done installation
-    # install backend dep
   - before: cd spotifyplaylistorganizer/frontend
     init: |
     gp sync-await installation
